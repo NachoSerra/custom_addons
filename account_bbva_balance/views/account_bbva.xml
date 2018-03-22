@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="view_account_bbva_form" model="ir.ui.view">
+      <field name="name">view.account_bbva.form</field>
+      <field name="model">account.bbva</field>
+      <field name="arch" type="xml">
+        <form string="BBVA">
+          <sheet>
+            <group name="main">
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_account_bbva_tree" model="ir.ui.view">
+      <field name="name">view.account_bbva.tree</field>
+      <field name="model">account.bbva</field>
+      <field name="arch" type="xml">
+        <tree string="BBVA">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_account_bbva_search" model="ir.ui.view">
+      <field name="name">view.account_bbva.search</field>
+      <field name="model">account.bbva</field>
+      <field name="arch" type="xml">
+        <search string="BBVA">
+          <field name="" />
+          <group string="Group By" name="groupby">
+            <filter name="_groupby" string="Account"
+              context="{'group_by': 'name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="account_bbva_action" model="ir.actions.act_window">
+      <field name="name">BBVA</field>
+      <field name="res_model">account.bbva</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new BBVA.
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="account_bbva_menu" parent=""
+      action="account_bbva_action" sequence="20"/>
+
+  </data>
+</openerp>
