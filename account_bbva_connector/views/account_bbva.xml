@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_account_bbva_form" model="ir.ui.view">
+      <field name="name">view.account_bbva.form</field>
+      <field name="model">account.bbva</field>
+      <field name="arch" type="xml">
+        <form string="BBVA">
+          <sheet>
+            <group name="main">
+              <field name="name" />
+            </group>
+            <notebook>
+            <page string="Moves">
+            <field name="bbva_lines">
+              <tree string="Moves" editable="bottom">
+                <field name="description" />
+                <field name="category" />
+                <field name="amount" widget='monetary' readonly="1" options="{'currency_field': 'currency_id'}"/>
+              </tree>
+            </field>
+          </page>
+          </notebook>
+          </sheet>
+          <div class="oe_chatter">
+                       <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                       <field name="message_ids" widget="mail_thread"/>
+                   </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_account_bbva_tree" model="ir.ui.view">
+      <field name="name">view.account_bbva.tree</field>
+      <field name="model">account.bbva</field>
+      <field name="arch" type="xml">
+        <tree string="BBVA">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_account_bbva_search" model="ir.ui.view">
+      <field name="name">view.account_bbva.search</field>
+      <field name="model">account.bbva</field>
+      <field name="arch" type="xml">
+        <search string="BBVA">
+          <field name="name" />
+          <group string="Group By" name="groupby">
+            <filter name="_groupby" string="Account"
+              context="{'group_by': 'name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="account_bbva_action" model="ir.actions.act_window">
+      <field name="name">BBVA</field>
+      <field name="res_model">account.bbva</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new BBVA.
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="account_bbva_menu" name="BBVA" parent="" sequence="20"/>
+      <menuitem id="account_bbva_menu2" name="BBVA Accounting" parent="account_bbva_connector.account_bbva_menu" sequence="20"/>
+      <menuitem id="account_bbva_menu3" name="Balance" parent="account_bbva_connector.account_bbva_menu2"
+          sequence="1" action="account_bbva_action"/>
+
+
+  </data>
+</odoo>
