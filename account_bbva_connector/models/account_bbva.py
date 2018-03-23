@@ -17,13 +17,10 @@ class AccountBbva(models.Model):
 
     @api.multi
     def post(self):
-        import pdb; pdb.set_trace()
-
+        pass
     @api.multi
     def update_moves(self):
-        import pdb; pdb.set_trace()
-        
-
+        pass
 class AccountBbvaLine(models.Model):
     _name = 'account.bbva.line'
 
