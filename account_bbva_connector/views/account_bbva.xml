@@ -6,6 +6,11 @@
       <field name="model">account.bbva</field>
       <field name="arch" type="xml">
         <form string="BBVA">
+          <header>
+            <button name="post" type="object" string="Post"/>
+            <button name="update_moves" type="object" string="Actualizar"/>
+
+                </header>
           <sheet>
             <group name="main">
               <field name="name" />
@@ -14,9 +19,12 @@
             <page string="Moves">
             <field name="bbva_lines">
               <tree string="Moves" editable="bottom">
+                <field name="company_id" invisible="1" />
+                <field name="currency_id" invisible="1"/>
+
                 <field name="description" />
                 <field name="category" />
-                <field name="amount" widget='monetary' readonly="1" options="{'currency_field': 'currency_id'}"/>
+                <field name="amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
               </tree>
             </field>
           </page>
@@ -65,11 +73,57 @@
       </field>
     </record>
 
-    <menuitem id="account_bbva_menu" name="BBVA" parent="" sequence="20"/>
+    <record id="view_bbva_config_tree" model="ir.ui.view">
+        <field name="name">view.bbva_config.tree</field>
+        <field name="model">account.bbva.config</field>
+        <field name="arch" type="xml">
+            <tree string="label">
+                <field name="nif" />
+
+            </tree>
+        </field>
+    </record>
+    <record id="view_bbva_config_settings" model="ir.ui.view">
+        <field name="name">BBVA Settings</field>
+        <field name="model">account.bbva.config</field>
+        <field name="arch" type="xml">
+            <form string="Configure BBVA">
+                <!-- <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header> -->
+                <sheet>
+                  <separator string="BBVA Login"/>
+                <group>
+
+                <field name="nif" />
+                <field name="password" password="True" />
+
+          </group>
+        </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bbva_config" model="ir.actions.act_window">
+      <field name="name">Configure BBVA</field>
+      <field name="res_model">account.bbva.config</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new BBVA.
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="account_bbva_menu" name="BBVA" parent="" sequence="20" web_icon="account_bbva_connector,static/description/icon.png"/>
       <menuitem id="account_bbva_menu2" name="BBVA Accounting" parent="account_bbva_connector.account_bbva_menu" sequence="20"/>
       <menuitem id="account_bbva_menu3" name="Balance" parent="account_bbva_connector.account_bbva_menu2"
           sequence="1" action="account_bbva_action"/>
 
+          <menuitem id="menu_bbva_config" name="Settings" parent="account_bbva_connector.account_bbva_menu"
+            sequence="22" action="action_bbva_config"/>
 
   </data>
 </odoo>
