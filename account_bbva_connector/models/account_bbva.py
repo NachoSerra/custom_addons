@@ -42,7 +42,8 @@ class AccountBbvaLine(models.Model):
 
     bbva_id = fields.Many2one(
         comodel_name='account.bbva',
-        string='Account')
+        string='Account',
+        ondelete='cascade')
 
     fecha = fields.Date(
         string='Date')
