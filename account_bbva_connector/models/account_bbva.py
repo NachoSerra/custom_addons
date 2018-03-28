@@ -15,6 +15,10 @@ class AccountBbva(models.Model):
         inverse_name='bbva_id',
         string='Moves')
 
+    last_import = fields.Date(
+        string='Last Import')
+
+
     @api.multi
     def post(self):
         pass
@@ -23,9 +27,6 @@ class AccountBbva(models.Model):
         pass
 class AccountBbvaLine(models.Model):
     _name = 'account.bbva.line'
-
-    amount = fields.Float(
-        string='Amount')
 
     company_id = fields.Many2one(
     comodel_name='res.company',
@@ -39,45 +40,35 @@ class AccountBbvaLine(models.Model):
         readonly="True",
         related='company_id.currency_id')
 
-    description = fields.Char(
-        string='Concept')
-
-    category = fields.Char(
-        string='Category')
-
     bbva_id = fields.Many2one(
         comodel_name='account.bbva',
         string='Account')
 
-# class BbvaConfigSettings(models.TransientModel):
-#     _name = 'account.bbva.config.settings'
-#     _inherit = 'res.config.settings'
-#
-#     nif = fields.Char(
-#         string='NIF')
-#
-#     password = fields.Char(
-#         string='Password')
-#
-#     @api.multi
-#     def execute(self):
-#         values = {}
-#         res = super(BbvaConfigSettings,self).execute()
-#         ctx = {}
-#         import pdb; pdb.set_trace()
-#         config_obj = self.env['account.bbva.config.instance']
-#         config_id = config_obj.search([])
-#         values['nif'] = self.nif or False
-#         values['password'] = self.password or False
-#         if not config_id:
-#             config_id = config_obj.create(values)
-#         else:
-#             config_id.write(values)
-#
-#         if res:
-#             res['context']=ctx
-#             res['params']={'nif':self.nif,'password': self.password or False}
-#         return res
+    fecha = fields.Date(
+        string='Date')
+
+    fechavalor = fields.Date(
+        string='Date Value')
+
+    concepto = fields.Char(
+        string='Concept')
+
+    movimiento = fields.Char(
+        string='Movement')
+
+    importe = fields.Float(
+        string='Amount')
+
+    disponible = fields.Float(
+        string='Amount available')
+
+    observaciones = fields.Char(
+        string='Observaciones')
+
+
+
+
+
 
 class BbvaConfigSettings(models.Model):
     _name = 'account.bbva.config'

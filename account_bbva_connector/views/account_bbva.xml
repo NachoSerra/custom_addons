@@ -14,6 +14,7 @@
           <sheet>
             <group name="main">
               <field name="name" />
+              <field name="last_import" />
             </group>
             <notebook>
             <page string="Moves">
@@ -21,10 +22,13 @@
               <tree string="Moves" editable="bottom">
                 <field name="company_id" invisible="1" />
                 <field name="currency_id" invisible="1"/>
-
-                <field name="description" />
-                <field name="category" />
-                <field name="amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="fecha" />
+                <field name="fechavalor" />
+                <field name="concepto" />
+                <field name="movimiento" />
+                <field name="importe" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="disponible" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="observaciones" />
               </tree>
             </field>
           </page>
@@ -123,7 +127,7 @@
           sequence="1" action="account_bbva_action"/>
 
           <menuitem id="menu_bbva_config" name="Settings" parent="account_bbva_connector.account_bbva_menu"
-            sequence="22" action="action_bbva_config"/>
+            sequence="40" action="action_bbva_config"/>
 
   </data>
 </odoo>
