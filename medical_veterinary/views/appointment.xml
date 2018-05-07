@@ -7,9 +7,9 @@
       <field name="arch" type="xml">
         <form string="Appointments">
           <header>
-                <!-- <button name="import_button" type="object"
-                  class="btn-primary" string="Import"/>
-                  <button name="reload_page" type="object"
+                <button name="action_confirm" type="object"
+                  class="btn-primary" string="Confirm" attrs="{'invisible':[('state','!=', 'draft')]}"/>
+                  <!-- <button name="reload_page" type="object"
                     class="btn-primary" string="Actualizar" attrs="{'invisible':[('state','=', 'not_imported')]}"/> -->
                  <field name="state" widget="statusbar"/>
              </header>
@@ -17,10 +17,26 @@
             <group name="main" col="4">
               <field name="partner_id" />
               <field name="patient" />
-              <field name="invoice_id" />
               <field name="date" />
 
             </group>
+            <notebook>
+            <page string="Service/Product">
+
+                <field name="appointment_lines">
+                  <tree editable="bottom">
+                    <field name="product_id" />
+                    <field name="qty" />
+                  </tree>
+                </field>
+            </page>
+            <page string="Invoice" attrs="{'invisible':[('state','=', 'draft')]}">
+              <group>
+              <field name="invoice_id" readonly="1" attrs="{'invisible':[('state','=', 'draft')]}"/>
+            </group>
+            </page>
+            </notebook>
+
 
           </sheet>
           <div class="oe_chatter">
@@ -62,7 +78,7 @@
     </record>
 
     <record id="appointment_veterinary_action" model="ir.actions.act_window">
-      <field name="name">Appointments</field>
+      <field name="name">New Appointment</field>
       <field name="res_model">medical.veterinary.appointment</field>
       <field name="view_mode">tree,form</field>
       <field name="help" type="html">
@@ -73,7 +89,11 @@
     </record>
     <menuitem id="medical_veterinary_menu" parent="" name="Veterinary"
           sequence="20" web_icon="medical_veterinary,static/description/icon.png"/>
-    <menuitem id="appointment_veterinary_menu" parent="medical_veterinary.medical_veterinary_menu"
+
+    <menuitem id="medical_veterinary_appointments" parent="medical_veterinary.medical_veterinary_menu"
+            name="Appointments" sequence="20"/>
+
+    <menuitem id="appointment_veterinary_menu" parent="medical_veterinary.medical_veterinary_appointments"
       action="appointment_veterinary_action" sequence="20"/>
 
   </data>

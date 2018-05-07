@@ -8,9 +8,9 @@
         <form string="Pet">
           <sheet>
             <group name="main" col="4">
+              <field name="name" />
               <field name="partner_id" required="1" />
               <field name="type" />
-              <field name="name" />
               <field name="age" />
               <field name="breed" />
             </group>
@@ -18,11 +18,11 @@
             <notebook>
             <page string="Personal Info">
             <separator string="Appointments"/>
-            <field name="appointment_ids">
-              <tree editable="bottom" readonly="1">
+            <field name="appointment_ids" readonly="1">
+              <tree editable="bottom">
                 <field name="date" />
                 <field name="state" />
-                <field name="invoice_id" />
+                <field name="invoice_id"/>
               </tree>
             </field>
             </page>
@@ -44,7 +44,7 @@
       <field name="model">medical.veterinary.pet</field>
       <field name="arch" type="xml">
         <tree string="Pet">
-          <field name="partner_id" />
+          <field name="partner_id" invisible="1" />
           <field name="name" />
           <field name="age" />
           <field name="type" />
@@ -68,18 +68,20 @@
     </record>
 
     <record id="veterinary_pets_action" model="ir.actions.act_window">
-      <field name="name">Pet</field>
+      <field name="name">New Patient</field>
       <field name="res_model">medical.veterinary.pet</field>
       <field name="view_mode">tree,form</field>
       <field name="help" type="html">
         <p class="oe_view_nocontent_create">
-          Click to create a new Pet.
+          Click to create a new Patient/Pet.
         </p>
       </field>
     </record>
 
+    <menuitem id="medical_veterinary_patients" parent="medical_veterinary.medical_veterinary_menu"
+            name="Patient/Pet" sequence="20"/>
 
-    <menuitem id="veterinary_pets_menu" parent="medical_veterinary.medical_veterinary_menu"
+    <menuitem id="veterinary_pets_menu" parent="medical_veterinary.medical_veterinary_patients"
       action="veterinary_pets_action" sequence="20"/>
 
   </data>

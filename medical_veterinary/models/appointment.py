@@ -51,6 +51,11 @@ class MedicalVeterinaryAppointment(models.Model):
          ('cancel', 'Canceled')],default='draft',
         string='State')
 
+    appointment_lines = fields.One2many(
+        comodel_name='medical.veterinary.appointment.line',
+        inverse_name='appointment_id',
+        string='Appointment Lines')
+
     @api.model
     def _default_datetime(self):
         date = datetime.now()
@@ -69,3 +74,66 @@ class MedicalVeterinaryAppointment(models.Model):
         new_id = super(MedicalVeterinaryAppointment, self).create(vals)
         # new_id.message_post(body='Appointment created',subject='Appointment',message_type='notification')
         return new_id
+
+    @api.multi
+    def action_confirm(self):
+        for record in self:
+            record.write({'state':'confirmed'})
+            vals = {'origin': record.name,
+                    'type': 'out_invoice',
+                    'account_id': record.partner_id.property_account_receivable_id.id,
+                    'partner_id': record.partner_id.id,
+                    'partner_shipping_id': record.partner_id.id,
+                    'merged': True,
+                    'fiscal_position_id': record.partner_id.property_account_position_id.id,
+                    'user_id': record.env.user.id,
+                    }
+            invoice_id = self.env['account.invoice'].create(vals)
+            record.invoice_id = invoice_id
+            invoice_id.appointment_id = record.id
+            for lines in record.mapped('appointment_lines'):
+                ir_property_obj = self.env['ir.property']
+                account_id = False
+                if lines.product_id.id:
+                    account_id = lines.product_id.property_account_income_id.id
+                if not account_id:
+                    inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                    account_id = invoice_id.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
+
+                invoice_id.write({
+                    'invoice_line_ids': [(0, 0, {
+                        'name': lines.product_id.display_name,
+                        'origin': lines.appointment_id.name,
+                        'account_id': account_id,
+                        'price_unit': lines.product_id.lst_price,
+                        'quantity': lines.qty,
+                        'uom_id': lines.product_id.uom_id.id,
+                        'product_id': lines.product_id.id,
+                    })],
+                })
+            invoice_id.compute_taxes()
+
+            invoices = record.mapped('invoice_id')
+            action = self.env.ref('account.action_invoice_tree1').read()[0]
+            if len(invoices) == 1:
+                action['views'] = [(self.env.ref('account.invoice_form').id, 'form')]
+                action['res_id'] = invoices.ids[0]
+            else:
+                action = {'type': 'ir.actions.act_window_close'}
+            return action
+
+class MedicalVeterinaryAppointmentLine(models.Model):
+    _name = 'medical.veterinary.appointment.line'
+    _description = 'Appointment Lines'
+
+    appointment_id = fields.Many2one(
+        comodel_name='medical.veterinary.appointment',
+        string='Appointment')
+
+    product_id = fields.Many2one(
+        comodel_name='product.product',
+        string='Product')
+
+    qty = fields.Float(
+        string='Quantity',
+        default=1)

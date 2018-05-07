@@ -19,20 +19,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-'name' : 'Medical Veterinary',
-'summary': 'Management for a clinical veterinary',
-'version' : '10.0.1.0.0',
-'description': 'Allows to manage patients and appointments',
-'license': 'AGPL-3',
-'author' : 'NachoSerra',
-'website': 'https://www.domatix.com',
-'category' : 'Medical',
-'depends' : ['account',],
-'data': ['views/appointment.xml',
-         'views/veterinary.xml'],
-'qweb' : [],
-'demo': [],
-'test': [],
-'installable': True,
-}
+from odoo import models, fields, api, _
+from datetime import datetime
+
+
+class AccountInvoice(models.Model):
+    _inherit = 'account.invoice'
+
+    appointment_id = fields.Many2one(
+        comodel_name='medical.veterinary.appointment',
+        string='Appointment')
