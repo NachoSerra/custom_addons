@@ -29,3 +29,5 @@ class AccountInvoice(models.Model):
     appointment_id = fields.Many2one(
         comodel_name='medical.veterinary.appointment',
         string='Appointment')
+
+    ##############################################################################Test
