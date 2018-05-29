@@ -30,4 +30,4 @@ class AccountInvoice(models.Model):
         comodel_name='medical.veterinary.appointment',
         string='Appointment')
 
-    ##############################################################################Test
+    ##############################################################################Test2s
