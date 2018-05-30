@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (c) 2018 Nacho Serra Almenar <nachoserra1988@gmail.com> @NachoSerra GitHub
-#
+#    Copyright (c) 2018 Ignacio José Serra Almenar
+#                       info <nachoserra1988@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
