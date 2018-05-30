@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_backloggery_game_form" model="ir.ui.view">
+      <field name="name">view.backloggery_game.form</field>
+      <field name="model">backloggery.game</field>
+      <field name="arch" type="xml">
+        <form string="Game">
+          <sheet>
+            <group name="main">
+              <field name="name" />
+              <field name="release_date" />
+              <field name="platform" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_backloggery_game_tree" model="ir.ui.view">
+      <field name="name">view.backloggery_game.tree</field>
+      <field name="model">backloggery.game</field>
+      <field name="arch" type="xml">
+        <tree string="Games">
+          <field name="name" />
+          <field name="release_date" />
+          <field name="platform" widget="many2many_tags" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_backloggery_game_search" model="ir.ui.view">
+      <field name="name">view.backloggery_game.search</field>
+      <field name="model">backloggery.game</field>
+      <field name="arch" type="xml">
+        <search string="Game">
+          <field name="name" />
+          <field name="platform" />
+          <group string="Group By" name="groupby">
+            <filter name="name_groupby" string="Platform"
+              context="{'group_by': 'platform'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="backloggery_game_action" model="ir.actions.act_window">
+      <field name="name">Games</field>
+      <field name="res_model">backloggery.game</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new "Game".
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="backloggery_menu" name="Backloggery" parent=""
+          web_icon="backloggery,static/description/icon.png" sequence="20"/>
+
+      <menuitem id="backloggery_game_menu" parent="backloggery_menu"
+              action="backloggery_game_action" sequence="20"/>
+
+
+  </data>
+</odoo>

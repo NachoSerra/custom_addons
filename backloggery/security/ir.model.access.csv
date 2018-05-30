@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_backloggery_game,access_backloggery_game,model_backloggery_game,,1,1,1,1
+access_backloggery_platform,access_backloggery_platform,model_backloggery_platform,,1,1,1,1
+access_backloggery_management,access_backloggery_management,model_backloggery_management,,1,1,1,1
+access_backloggery_management_line,access_backloggery_management_line,model_backloggery_management_line,,1,1,1,1

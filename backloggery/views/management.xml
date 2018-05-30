@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="view_backloggery_management_form" model="ir.ui.view">
+      <field name="name">view.backloggery_management.form</field>
+      <field name="model">backloggery.management</field>
+      <field name="arch" type="xml">
+        <form string="Game Management">
+          <sheet>
+            <group name="main">
+              <field name="name" />
+              <field name="hours_total" />
+            </group>
+            <notebook>
+            <page string="Games Played">
+              <field name="lines" widget="one2many">
+                <tree editable="bottom">
+                  <field name="game" />
+                  <field name="start_date" />
+                  <field name="end_date" />
+                  <field name="hours" />
+                  <field name="review" />
+                </tree>
+              </field>
+
+            </page>
+            </notebook>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_backloggery_management_tree" model="ir.ui.view">
+      <field name="name">view.backloggery_management.tree</field>
+      <field name="model">backloggery.management</field>
+      <field name="arch" type="xml">
+        <tree string="Games Played">
+          <field name="name" />
+          <field name="hours_total" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_backloggery_management_search" model="ir.ui.view">
+      <field name="name">view.backloggery_management.search</field>
+      <field name="model">backloggery.management</field>
+      <field name="arch" type="xml">
+        <search string="Games Played">
+          <field name="name" />
+          <group string="Group By" name="groupby">
+            <filter name="name_groupby" string="Name"
+              context="{'group_by': 'name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="backloggery_management_action" model="ir.actions.act_window">
+      <field name="name">Management</field>
+      <field name="res_model">backloggery.management</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new "Management".
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="backloggery_management_menu" parent="backloggery_menu"
+      action="backloggery_management_action" sequence="10"/>
+
+  </data>
+</openerp>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="view_backloggery_platform_form" model="ir.ui.view">
+      <field name="name">view.backloggery_platform.form</field>
+      <field name="model">backloggery.platform</field>
+      <field name="arch" type="xml">
+        <form string="Platform">
+          <sheet>
+            <group name="main">
+              <field name="name" />
+            </group>
+            <notebook>
+            <page string="Games">
+            <group name="games">
+                <field name="games"/>
+            </group>
+            </page>
+            </notebook>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_backloggery_platform_tree" model="ir.ui.view">
+      <field name="name">view.backloggery_platform.tree</field>
+      <field name="model">backloggery.platform</field>
+      <field name="arch" type="xml">
+        <tree string="Platform">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_backloggery_platform_search" model="ir.ui.view">
+      <field name="name">view.backloggery_platform.search</field>
+      <field name="model">backloggery.platform</field>
+      <field name="arch" type="xml">
+        <search string="Platform">
+          <field name="name" />
+          <group string="Group By" name="groupby">
+            <filter name="name_groupby" string="Platform"
+              context="{'group_by': 'name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="backloggery_platform_action" model="ir.actions.act_window">
+      <field name="name">Platform</field>
+      <field name="res_model">backloggery.platform</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new "Platform".
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="backloggery_platform_menu" parent="backloggery_menu"
+      action="backloggery_platform_action" sequence="30"/>
+
+  </data>
+</openerp>
