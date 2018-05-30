@@ -25,7 +25,7 @@
 'version' : '10.0.1.0.0',
 'license': 'AGPL-3',
 'author' : 'NachoSerra',
-'website': 'https://www.domatix.com',
+'website': 'https://github.com/NachoSerra/custom_addons/',
 'category' : 'Accounting',
 'depends' : ['account',],
 'data': ['views/account_bbva.xml',
