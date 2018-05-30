@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (c) 2015 Nacho Serra Almenar <nachoserra1988@gmail.com> @NachoSerra GitHub
-#
+#    Copyright (c) 2018 Ignacio José Serra Almenar
+#                       info <nachoserra1988@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -26,7 +26,7 @@
 'description': 'Allows to manage patients and appointments',
 'license': 'AGPL-3',
 'author' : 'NachoSerra',
-'website': 'https://www.domatix.com',
+'website': 'https://github.com/NachoSerra/custom_addons/',
 'category' : 'Medical',
 'depends' : ['account',],
 'data': ['views/appointment.xml',
